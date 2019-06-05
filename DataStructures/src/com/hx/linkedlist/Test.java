@@ -22,7 +22,30 @@ public class Test {
 		list.addByOrder(n2);
 		list.addByOrder(n3);
 		
-		list.list();
+//		list.list();
+//
+//		list.update(new Node(4,"武松","打虎武松"));
+//
+//		System.out.println("更新之后");
+//
+//		list.list();
+		
+//		list.delete(4);
+//		list.delete(2);
+//		list.delete(3);
+//		list.delete(1);
+//		list.delete(1);
+//		list.list();
+		
+//		System.out.println(list.getLength(list.getHead()));
+		
+//		Node indexNode = list.findLastIndexNode(list.getHead(), 0);
+//		System.out.println(indexNode);
+		
+//		list.reverseList(list.getHead());
+//		list.list();
+		
+		list.reversePrintByStack(list.getHead());
 		
 	}
 }
