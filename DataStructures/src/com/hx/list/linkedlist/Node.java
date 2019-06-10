@@ -1,4 +1,4 @@
-package com.hx.linkedlist;
+package com.hx.list.linkedlist;
 
 /**
  * @author jxlgcmh
