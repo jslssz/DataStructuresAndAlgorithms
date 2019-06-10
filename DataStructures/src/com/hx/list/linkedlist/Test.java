@@ -39,13 +39,13 @@ public class Test {
 		
 //		System.out.println(list.getLength(list.getHead()));
 		
-//		Node indexNode = list.findLastIndexNode(list.getHead(), 0);
+//		Node indexNode = list.findLastIndex(list.getHead(), 3);
 //		System.out.println(indexNode);
 		
 //		list.reverseList(list.getHead());
 //		list.list();
 		
-		list.reversePrintByStack(list.getHead());
+		//list.reversePrintByStack(list.getHead());
 		
 	}
 }

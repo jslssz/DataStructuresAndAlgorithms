@@ -180,6 +180,10 @@ public class SingleList {
 		return current;
 	}
 	
+	
+	
+	
+	
 	/**
 	 * 反转链表
 	 * @param head
