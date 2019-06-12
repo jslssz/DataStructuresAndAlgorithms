@@ -61,7 +61,7 @@ class Queue {
 	public Queue(int maxSize) {
 		this.maxSize = maxSize;
 		arr = new int[maxSize];
-		//一下两个可以不写
+		//以下两个可以不写
 		head = 0;
 		tail = 0;
 	}

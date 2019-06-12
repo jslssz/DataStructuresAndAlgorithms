@@ -216,6 +216,10 @@ public class SingleList {
 		
 	}
 	
+	/**
+	 * 通过栈的方式来反向打印链表
+	 * @param head
+	 */
 	public void reversePrintByStack(Node head) {
 		
 		if (head.next == null) {
@@ -233,6 +237,8 @@ public class SingleList {
 		}
 		
 	}
+	
+	
 	
 	
 	
