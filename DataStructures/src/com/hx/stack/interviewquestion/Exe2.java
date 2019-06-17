@@ -13,8 +13,8 @@ import java.util.Stack;
 public class Exe2 {
 	
 	public static void main(String[] args) {
-		//String expression = "10*5*(10-8)+10-10";
-		String expression = "(1)";
+		String expression = "10*5-(10+8)+10";
+		//String expression = "(1)";
 		System.out.println("中缀表达式：" + expression);
 		Exe2 exe2 = new Exe2();
 		//中缀表达式转为list集合
@@ -253,7 +253,7 @@ public class Exe2 {
 					res.add(stack.pop());
 				}
 				stack.pop();
-			} else {//栈内操作符优先级更大
+			} else {//栈内操作符优先级更大,此处直接'('和')'的优先级为-1,item操作符的优先级更大，直接入栈
 				while (!stack.empty() && priority(stack.peek().charAt(0)) >= priority(item.charAt(0))) {
 					res.add(stack.pop());
 				}
@@ -283,7 +283,6 @@ public class Exe2 {
 	}
 	
 	/**
-	 * 只能计算一位数
 	 *
 	 * @param list
 	 * @return
