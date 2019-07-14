@@ -1,6 +1,7 @@
 package com.hx.tree;
 
 
+import java.lang.annotation.Target;
 import java.util.IllegalFormatFlagsException;
 
 /**
@@ -23,12 +24,14 @@ public class BinaryTreeDemo {
 		
 		BinaryTree binaryTree = new BinaryTree();
 		binaryTree.setRoot(node1);
-		//binaryTree.toPreOrder();
+		binaryTree.toPreOrder();
 		//binaryTree.toInfixOrder();
 		//binaryTree.toPostOrder();
 		//TreeNode resNode = binaryTree.toPreFind(5);
-		TreeNode resNode = binaryTree.toInfixFind(5);
-		System.out.println(resNode.name);
+		//TreeNode resNode = binaryTree.toInfixFind(5);
+		//System.out.println(resNode.name);
+		binaryTree.del(5);
+		binaryTree.toPreOrder();
 	}
 }
 
@@ -87,6 +90,18 @@ class BinaryTree {
 			return;
 		}
 		this.root.postOrder();
+	}
+	
+	public void del(int target) {
+		if (this.root != null) {
+			if (root.id == target) {
+				this.root =null;
+			}else {
+				this.root.del(target);
+			}
+		}else {
+			System.out.println("树空，不能删除！");
+		}
 	}
 	
 	
@@ -224,6 +239,23 @@ class TreeNode {
 		
 		return resNode;
 		
+	}
+	
+	public void del(int target) {
+		if (this.left != null && this.left.id == target) {
+			this.left =null;
+			return;
+		}
+		if (this.right != null && this.right.id == target) {
+			this.right =null;
+			return;
+		}
+		if (this.left != null) {
+			this.left.del(target);
+		}
+		if (this.right != null) {
+			this.right.del(target);
+		}
 	}
 	
 	
