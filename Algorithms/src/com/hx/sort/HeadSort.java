@@ -17,8 +17,27 @@ public class HeadSort {
     public static void headSort(int[] arr) {
         int temp = 0;
         System.out.println("堆排序：");
-        adjustHeap(arr,1,arr.length);
+/*        adjustHeap(arr,1,arr.length);
         System.out.println("第一次："+ Arrays.toString(arr));
+        adjustHeap(arr,0,arr.length);
+        System.out.println("第二次："+ Arrays.toString(arr));*/
+        /**
+         * 通过观察,构建成堆，i表示非叶子节点的下标
+         */
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+            adjustHeap(arr,i,arr.length);
+        }
+
+        /**
+         * 将堆顶元素与末尾元素交换
+         */
+        for (int j = arr.length - 1; j > 0; j--) {
+            temp =arr[j];
+            arr[j] = arr[0];
+            arr[0]=temp;
+            adjustHeap(arr,0,j);
+        }
+        System.out.println("从小到大最终排序结果："+Arrays.toString(arr));
     }
 
     /**
