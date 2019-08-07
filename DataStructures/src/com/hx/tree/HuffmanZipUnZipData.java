@@ -1,7 +1,7 @@
 package com.hx.tree;
 
 import javax.management.RuntimeOperationsException;
-import java.io.Serializable;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -18,33 +18,157 @@ public class HuffmanZipUnZipData {
     static StringBuilder stringBuilder = new StringBuilder();
 
     public static void main(String[] args) {
-        String text = "i like like like java do you like a java";
-        List<DataNode> dataNodeList = createDataNodeList(text);
-        DataNode root = createHuffmanTree(dataNodeList);
-        /*
-        huffmanCodes
-        { =01, a=100, d=11000, u=11001, e=1110, v=11011, i=101, y=11010, j=0010, k=1111, l=000, o=0011}
-         */
-        Map<Character, String> huffmanCodes = getHuffmanCode(root);
-        /**
-         * huffmanByteCodes 压缩后的结果，每八位一个
-         * [-88, -65, -56, -65, -56, -65, -55, 77, -57, 6, -24, -14, -117, -4, -60, -90, 28]
-         */
-        byte[] zip = zip(text, huffmanCodes);
+      /*  String text = "i like like like java do you like a java";
+        //        List<DataNode> dataNodeList = createDataNodeList(text);
+        //        DataNode root = createHuffmanTree(dataNodeList);
+        //        *//*
+        //        huffmanCodes
+        //        { =01, a=100, d=11000, u=11001, e=1110, v=11011, i=101, y=11010, j=0010, k=1111, l=000, o=0011}
+        //         *//*
+        //        Map<Character, String> huffmanCodes = getHuffmanCode(root);
+        //        *//**
+         //         * huffmanByteCodes 压缩后的结果，每八位一个
+         //         * [-88, -65, -56, -65, -56, -65, -55, 77, -57, 6, -24, -14, -117, -4, -60, -90, 28]
+         //         *//*
+        //        byte[] zip = zip(text, huffmanCodes);
+        //
+        //        char[] chars = unzip(zip, huffmanCodes);
+        //        // i like like like java do you like a java
+        //        System.out.println(new String(chars));
+        //        // 至此，压缩解压缩完毕*/
 
-        char[] chars = unzip(zip, huffmanCodes);
-        // i like like like java do you like a java
-        System.out.println(new String(chars));
-        // 至此，压缩解压缩完毕
+
+        zipFile("D:\\规律的饮食和休息.docx", "D:\\1234.zip");
+        unZipFile("D:\\1234.zip", "D:\\规律的饮食和休息2.docx");
+
+    }
 
 
+    /**
+     * 压缩文件
+     *
+     * @param src 源文件
+     * @param dst 解压缩的文件
+     */
+    public static void unZipFile(String src, String dst) {
+        FileInputStream inputStream = null;
+        ObjectInputStream objectInputStream = null;
+        FileOutputStream outputStream = null;
+        try {
+            inputStream = new FileInputStream(src);
+            objectInputStream = new ObjectInputStream(inputStream);
+            byte[] huffManBytes = (byte[]) objectInputStream.readObject();
+            Map<Character, String> huffmanCode = (Map<Character, String>) objectInputStream.readObject();
+            char[] unzip = unzip(huffManBytes, huffmanCode);
+            outputStream =new FileOutputStream(dst);
+
+            /**
+             * 没设计好就是这样,转来转去
+             */
+            String string = new String(unzip);
+            byte[] bytes1 = string.getBytes();
+
+           /* byte [] bytes =new byte[unzip.length];
+            for (int i = 0; i < unzip.length; i++) {
+                char c = unzip[i];
+                bytes[i]= (byte) c;
+            }*/
+            outputStream.write(bytes1);
+
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (objectInputStream != null) {
+                try {
+                    objectInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+
+
+    /**
+     * 压缩文件
+     *
+     * @param src 源文件
+     * @param dst 压缩的文件
+     */
+    public static void zipFile(String src, String dst) {
+        FileInputStream inputStream = null;
+        FileOutputStream outputStream = null;
+        ObjectOutputStream objectOutputStream = null;
+        try {
+            inputStream = new FileInputStream(src);
+            byte[] b = new byte[inputStream.available()];
+            inputStream.read(b);
+            // 得到文件对应Huffman编码
+
+            /**
+             * 1.将byte数组转DataNodeList
+             */
+            String s = new String(b);
+            List<DataNode> dataNodeList = createDataNodeList(s);
+            DataNode root = createHuffmanTree(dataNodeList);
+            Map<Character, String> huffmanCode = getHuffmanCode(root);
+            byte[] zip = zip(s, huffmanCode);
+
+            outputStream = new FileOutputStream(dst);
+            objectOutputStream = new ObjectOutputStream(outputStream);
+            // 以对象流的方式写出去
+            objectOutputStream.writeObject(zip);
+            // 把“解码器表”也写进去
+            objectOutputStream.writeObject(huffmanCode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (objectOutputStream != null) {
+                try {
+                    objectOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
      * 解压缩
      *
      * @param huffmanByteCodes 编码后的字节数组
-     * @param huffmanCodes 哈夫曼编码表
+     * @param huffmanCodes     哈夫曼编码表
      * @return 解码后的字节数组
      */
     public static char[] unzip(byte[] huffmanByteCodes, Map<Character, String> huffmanCodes) {
@@ -54,37 +178,37 @@ public class HuffmanZipUnZipData {
             // 如果是最后一个，则flag == true
             boolean flag = (i == huffmanByteCodes.length - 1);
             // 调用 (false,b)
-            sb.append(byteToBitString(!flag,b));
+            sb.append(byteToBitString(!flag, b));
         }
         // for 循环结束
 
         // 将Huffman编码的键值位置互换
-        Map<String,Character> map = new HashMap<>();
+        Map<String, Character> map = new HashMap<>();
         for (Map.Entry<Character, String> entry : huffmanCodes.entrySet()) {
-            map.put(entry.getValue(),entry.getKey());
+            map.put(entry.getValue(), entry.getKey());
         }
 
 
-        List<Character> characters =new ArrayList<>();
+        List<Character> characters = new ArrayList<>();
         // 注意循环条件
         for (int i = 0; i < sb.length(); ) {
-            int count =1;
-            boolean flag =true;
-            Character b= null;
+            int count = 1;
+            boolean flag = true;
+            Character b = null;
             while (flag) {
                 String key = sb.substring(i, i + count);
-                b=map.get(key);
+                b = map.get(key);
                 if (b == null) {
                     count++;
-                }else {
-                    flag =false;
+                } else {
+                    flag = false;
                 }
             }
             characters.add(b);
-            i+=count;
+            i += count;
         }
         // 循环结束
-        char [] chars =new char[characters.size()];
+        char[] chars = new char[characters.size()];
         for (int i = 0; i < chars.length; i++) {
             chars[i] = characters.get(i);
         }
@@ -93,26 +217,28 @@ public class HuffmanZipUnZipData {
 
     /**
      * 将byte转为bit
-     * @param b byte
+     *
+     * @param b    byte
      * @param flag 标志
      * @return string
      */
-    public static String byteToBitString(boolean flag,byte b) {
-        int temp =b;
+    public static String byteToBitString(boolean flag, byte b) {
+        int temp = b;
         if (flag) {
-            temp |=256;
+            temp |= 256;
         }
-        String str =Integer.toBinaryString(temp);
+        String str = Integer.toBinaryString(temp);
         if (flag) {
             return str.substring(str.length() - 8);
-        }else {
+        } else {
             return str;
         }
     }
+
     /**
-     *  将文本压缩为byte数组
+     * 将文本压缩为byte数组
      *
-     * @param text 文本
+     * @param text         文本
      * @param huffmanCodes 哈夫曼编码
      * @return byte[]数组
      */
