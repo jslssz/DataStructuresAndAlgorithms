@@ -8,7 +8,8 @@ public class AVLTreeDemo {
     public static void main(String[] args) {
         AVLTree avlTree =new AVLTree();
 //        int [] arr ={4,3,6,5,7,8};
-        int [] arr ={10,12,8,9,7,6};
+//        int [] arr ={10,12,8,9,7,6};
+        int [] arr ={10,11,8,9,7,6};
         for (int item : arr) {
             avlTree.add(new AVLNode(item));
         }
@@ -361,12 +362,29 @@ class AVLNode{
         // 进行相应的旋转
         // 右子树更高,则左旋
         if ((this.getRightHigh() - this.getLeftHigh()) >1) {
-            leftRotate();
-
+            // 还需要进一步判断  如果他的右子树的左子树的高度大于他的右子树的右子树的高度
+            if (this.right != null && this.right.getLeftHigh() > this.right.getRightHigh()) {
+                //先对右子树进行旋转
+                this.right.rightRotate();
+                // 然后当前节点进行左旋
+                leftRotate();
+            }else {// 直接左旋
+                leftRotate();
+            }
+            // 必须添加
+            return;
         }
         // 左子树更高,右旋
         if ((this.getLeftHigh() - this.getRightHigh()) >1) {
-            rightRotate();
+            // 还需要进一步判断  如果他的左子树的右子树的高度大于他的左子树的高度
+            if (this.left != null && this.left.getRightHigh() > this.left.getLeftHigh()) {
+                //先对左子树进行旋转
+                this.left.leftRotate();
+                // 然后当前节点进行左旋
+                rightRotate();
+            }else {
+                rightRotate();
+            }
         }
     }
 
