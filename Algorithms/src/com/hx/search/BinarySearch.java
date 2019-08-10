@@ -31,9 +31,7 @@ public class BinarySearch {
 	 * @return
 	 */
 	public static List<Integer> binarySearch2(int[] arr, int left, int right, int target) {
-		
 		int mid = (left + right) / 2;
-		
 		if (left > right) {
 			return new ArrayList<Integer>();
 		}
@@ -47,27 +45,21 @@ public class BinarySearch {
 		}
 		//此时，因为数组是有序的，找目标值后进行左右判断
 		else {
-			
 			List<Integer> list = new ArrayList<Integer>();
-			
 			//临时索引
 			int tempIndex = mid - 1;
-			
 			//先往作为判断
 			while (tempIndex >= 0 && target == arr[tempIndex]) {
 				list.add(tempIndex);
 				tempIndex--;
 			}
-			
 			//此时添加最先找到的目标索引
 			list.add(mid);
-			
 			//往右为判断
 			while (tempIndex < arr.length && target == arr[tempIndex]) {
 				list.add(tempIndex);
 				tempIndex++;
 			}
-			
 			return list;
 		}
 	}
@@ -83,9 +75,7 @@ public class BinarySearch {
 	 * @return
 	 */
 	public static int binarySearch(int[] arr, int left, int right, int target) {
-		
 		int mid = (left + right) / 2;
-		
 		if (left > right) {
 			return -1;
 		}

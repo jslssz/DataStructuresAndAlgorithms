@@ -28,7 +28,6 @@ public class BinarySearchNoRecur {
             else {
                 left =mid+1;
             }
-
         }
         return -1;
     }

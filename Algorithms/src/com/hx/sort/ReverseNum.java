@@ -6,8 +6,6 @@ package com.hx.sort;
  */
 public class ReverseNum {
 	public static void main(String[] args) {
-		
-		
 		int a=895151;
 		int rs = 0;
 		while (a > 0) {
@@ -16,8 +14,5 @@ public class ReverseNum {
 			a /= 10;
 		}
 		System.out.println(rs);
-		
-		
-
 	}
 }

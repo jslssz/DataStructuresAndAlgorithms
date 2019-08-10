@@ -22,7 +22,6 @@ public class BuboSort {
 					arr[j] = arr[j + 1];
 					arr[j + 1] = temp;
 				}
-				
 			}
 			System.out.println(Arrays.toString(arr));
 			if (!flag) {
@@ -31,7 +30,6 @@ public class BuboSort {
 				//flag置回false
 				flag = false;
 			}
-			
 		}
 	}
 }

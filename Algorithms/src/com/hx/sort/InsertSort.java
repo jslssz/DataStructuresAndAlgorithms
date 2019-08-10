@@ -29,7 +29,5 @@ public class InsertSort {
 			//打印每次交换的结果
 			System.out.println(Arrays.toString(arr));
 		}
-		
-		
 	}
 }

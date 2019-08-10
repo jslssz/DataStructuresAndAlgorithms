@@ -6,10 +6,9 @@ import java.util.Arrays;
  * @author jxlgcmh
  * @create 2019-06-23 20:22
  *
- * 归并排序：时间复杂度O(n log n)
+ * 归并排序：时间复杂度O(n log n)  分治算法
  */
 public class MergeSort {
-	
 	public static void main(String[] args) {
 		int [] arr = {5,6,84,53,4,8,31,5};
 		int [] temp = new int[arr.length];
@@ -18,9 +17,6 @@ public class MergeSort {
 	}
 	
 	public static void mergeSort(int[] arr, int left,int right, int[] temp) {
-		
-		
-		
 		if (left < right) {
 			int mid =(left+right) / 2;
 			//左递归分解
@@ -33,13 +29,7 @@ public class MergeSort {
 			merge(arr,left,mid,right,temp);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * @param arr
 	 * @param left
@@ -54,7 +44,6 @@ public class MergeSort {
 		int j = mid + 1;
 		// 临时数组的索引
 		int t = 0;
-		
 		//1、先把左右两边的数据按规则填充到temp数组，直到一边处理完毕
 		while (i <= mid && j <= right) {
 			//左边大于右边，左边拷到临时数组
@@ -74,7 +63,6 @@ public class MergeSort {
 				j++;
 			}
 		}
-		
 		//2、将剩余一边的数组拷贝到temp
 		//2.1、拷贝左边剩余
 		while (i <= mid) {
@@ -91,10 +79,8 @@ public class MergeSort {
 			//后移
 			j++;
 		}
-		
 		//3、将temp拷贝回原来的数组
 		//3.1、总共会有7次的拷贝
-		
 		t =0;
 		int tempLeft = left;
 		System.out.println(tempLeft+"\t"+right);
@@ -103,6 +89,5 @@ public class MergeSort {
 			t++;
 			tempLeft++;
 		}
-		
 	}
 }

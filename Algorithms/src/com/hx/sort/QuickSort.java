@@ -3,14 +3,10 @@ package com.hx.sort;
 import java.util.Arrays;
 
 /**
+ * 快排--分治算法
  * @author jxlgcmh
  * @create 2019-06-23 16:30
- *
- *
  * 如果出现了重复数字会死循环
- *
- *
- *
  */
 public class QuickSort {
 	public static void main(String[] args) {
@@ -35,19 +31,12 @@ public class QuickSort {
 		while (lIndex < rIndex) {
 			//左边找到大于pivot的值
 			while (arr[lIndex] < pivot) {
-				
 				lIndex++;
-				
 			}
-			
 			//右边找小于pivot的值
 			while (arr[rIndex] > pivot) {
-				
 				rIndex--;
-				
 			}
-			
-			
 			//此时满足时退出while循环
 			if (lIndex >= rIndex) {
 				break;
@@ -56,9 +45,7 @@ public class QuickSort {
 			temp = arr[lIndex];
 			arr[lIndex] = arr[rIndex];
 			arr[rIndex] = temp;
-			
 			//交换后的处理
-			
 			//如果此时左指针的值得中间值
 			if (arr[lIndex] == pivot) {
 				//右指针往前移
@@ -69,26 +56,20 @@ public class QuickSort {
 				//左指针往后移
 				lIndex ++;
 			}
-			
 		}
-		
 		//递归
-		
 		//处理栈溢出问题
 		if (lIndex == rIndex) {
 			lIndex ++;
 			rIndex --;
 		}
-		
 		//左递归,将左侧变为有序
 		if (left < rIndex) {
 			quickSort(arr,left,rIndex);
 		}
-		
 		//右递归,将右侧变为有序
 		if (right > lIndex) {
 			quickSort(arr,lIndex,right);
 		}
-		
 	}
 }

@@ -32,7 +32,6 @@ public class InsertValueSearch {
 		}
 		//中值的条件的改变
 		int mid = left + (right-left) * (target-arr[left])/(arr[right]-arr[left]);
-		
 		// 中间值更大，则往左找
 		if (arr[mid] > target) {
 			return insertValueSearch(arr, left, mid - 1, target);
