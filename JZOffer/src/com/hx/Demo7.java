@@ -10,7 +10,7 @@ public class Demo7 {
     }
 
     /**
-     * 条台阶的方法
+     * 跳台阶的方法
      *
      * @param n 表示有几级台阶
      * @return 返回有多少种跳法
