@@ -10,7 +10,8 @@ import java.util.List;
  */
 public class HuffmanTree {
     public static void main(String[] args) {
-        int[] arr = {13, 7, 8, 3, 29, 6, 1};
+//        int[] arr = {13, 7, 8, 3, 29, 6, 1};
+        int[] arr = {1,12,13,4,8};
         Node root = toHuffmanTree(arr);
         System.out.println(root);
         toPreOrder(root);

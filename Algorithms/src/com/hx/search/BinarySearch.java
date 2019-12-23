@@ -45,7 +45,7 @@ public class BinarySearch {
 		}
 		//此时，因为数组是有序的，找目标值后进行左右判断
 		else {
-			List<Integer> list = new ArrayList<Integer>();
+			List<Integer> list = new ArrayList<>();
 			//临时索引
 			int tempIndex = mid - 1;
 			//先往作为判断
@@ -56,9 +56,11 @@ public class BinarySearch {
 			//此时添加最先找到的目标索引
 			list.add(mid);
 			//往右为判断
-			while (tempIndex < arr.length && target == arr[tempIndex]) {
-				list.add(tempIndex);
-				tempIndex++;
+			//临时索引2
+			int tempIndex2 = mid + 1;
+			while (tempIndex2 < arr.length && target == arr[tempIndex2]) {
+				list.add(tempIndex2);
+				tempIndex2++;
 			}
 			return list;
 		}

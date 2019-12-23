@@ -25,26 +25,26 @@ public class HeadSort {
          * 通过观察,构建成堆，i表示非叶子节点的下标
          */
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
-            adjustHeap(arr,i,arr.length);
+            adjustHeap(arr, i, arr.length);
         }
 
         /**
          * 将堆顶元素与末尾元素交换
          */
         for (int j = arr.length - 1; j > 0; j--) {
-            temp =arr[j];
+            temp = arr[j];
             arr[j] = arr[0];
-            arr[0]=temp;
-            adjustHeap(arr,0,j);
+            arr[0] = temp;
+            adjustHeap(arr, 0, j);
         }
-        System.out.println("从小到大最终排序结果："+Arrays.toString(arr));
+        System.out.println("从小到大最终排序结果：" + Arrays.toString(arr));
     }
 
     /**
      * 调整为大堆项
      *
      * @param arr
-     * @param i  非叶子节点在数组中的索引
+     * @param i      非叶子节点在数组中的索引
      * @param length 表示有多少个元素继续调整
      */
     public static void adjustHeap(int[] arr, int i, int length) {
@@ -61,11 +61,11 @@ public class HeadSort {
                 // 交换
                 arr[i] = arr[k];
                 // i指向k，继续循环比较
-                i=k;
-            }else {
+                i = k;
+            } else {
                 break;
             }
         }
-        arr[i]=temp;
+        arr[i] = temp;
     }
 }
